@@ -4,53 +4,67 @@ form.addEventListener('submit', function(event) {
     // In this case prevents the form from reloading the page
     event.preventDefault()
 
-   
-   // let inputConfirmPassword = document.getElementById('inputConfirmPassword');
-   // console.log(inputEmail);
-   // console.log(inputEmail.value);
-
-
-   const requiredFields = [
-    'inputEmail',
-    'inputPassword',
-    'inputAddress',
-    'inputAddress2',
-    'inputCity',
-    'inputZip',
-   ]
+    const requiredFields = [
+        'inputEmail',
+        'inputPassword',
+        'inputAddress',
+        'inputAddress2',
+        'inputCity',
+        'inputZip',
+    ]
 
    let errorMessages = "";
    for (let requiredField of requiredFields) {
-    const inputField = document.getElementById(requiredField);
-    if (isInputEmpty(inputField)) {
-        let fieldName = requiredField.replace('input', '');
-
-        switch(fieldName) {
-            case 'Address2':
-                fieldName = 'Second Address'
-                break;
-        }
-        // console.log(fieldName)
-        errorMessages += `${fieldName} is required <br>`;
-    } 
+    errorMessages += getRequiredFieldErrorMessage(requiredField)
    }
 
-
-   let formMessages     = document.getElementById('form-messages');
-   if (errorMessages == "") {
-       formMessages.innerHTML = `
-       <div class="alert alert-success">
-          You are registered :)
-       </div>`;
-   } else { 
-       formMessages.innerHTML = `
-       <div class="alert alert-danger">
-           ${errorMessages}
-       </div>`;
-   }
+   document.getElementById('form-messages').innerHTML = getFormattedMessage(errorMessages);
 })
 
 
+
+function getRequiredFieldErrorMessage(requiredField) {
+    const inputField = document.getElementById(requiredField);
+    if (isInputEmpty(inputField)) {
+        return `${getFieldName(requiredField)} is required <br>`;
+    }
+    
+    return "";
+}
+
+function getFieldName(requiredField) {
+    let fieldName = requiredField.replace('input', '');
+
+    switch(fieldName) {
+        case 'Address2':
+            fieldName = 'Second Address'
+            break;
+    }
+
+    return fieldName;
+}
+
+function getFormattedSuccessMessage() {
+    return `
+        <div class="alert alert-success">
+            You are registered :)
+        </div>`;
+}
+
+function getFormattedErrorMessage(errorMessages) {
+    return `
+        <div class="alert alert-danger">
+           ${errorMessages}
+        </div>`;
+}
+
+function getFormattedMessage(errorMessages) {
+    if (errorMessages == "") {
+        return getFormattedSuccessMessage();
+    } else { 
+        return getFormattedErrorMessage(errorMessages);
+    }
+}
 
 function isInputEmpty(input) {
     return input.value.trim() === ""

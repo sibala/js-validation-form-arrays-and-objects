@@ -18,10 +18,15 @@ form.addEventListener('submit', function(event) {
     errorMessages += getRequiredFieldErrorMessage(requiredField)
    }
 
+
+   
+
+
+   
+   
+
    document.getElementById('form-messages').innerHTML = getFormattedMessage(errorMessages);
 })
-
-
 
 function getRequiredFieldErrorMessage(requiredField) {
     const inputField = document.getElementById(requiredField);
@@ -71,19 +76,6 @@ function isInputEmpty(input) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function generateBirthYearRangeSelectOptionsHTML(startYear, endYear, defaultYear) {
     let birthYearOptionsHTML = "";
     for (let i = startYear; i >= endYear; i--) {
@@ -100,3 +92,15 @@ function generateBirthYearRangeSelectOptionsHTML(startYear, endYear, defaultYear
 
 let currentYear = new Date().getFullYear(); // 2022
 document.getElementById('selectBirthYear').innerHTML = generateBirthYearRangeSelectOptionsHTML(currentYear, currentYear - 100, 1990);
+
+/**
+    * Hpw to use validation with regex
+    * In this case we are looking for a string with at least 1 capital letter
+    */
+    // const inputPassword = document.getElementById('inputPassword');
+    // const regex = new RegExp("(?=.*[A-Z])");
+    // if (regex.test(inputPassword.value)) {
+    //    alert('There is a capital letter in the password')
+    // } else {
+    //     alert('There is NOT a capital letter in the password')
+    // }

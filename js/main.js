@@ -4,22 +4,26 @@ form.addEventListener('submit', function(event) {
     // In this case prevents the form from reloading the page
     event.preventDefault()
 
-    const requiredFields = [
+
+    const formValidation = new FormValidation();
+    formValidation.requiredFields = [
         'inputEmail',
         'inputPassword',
         'inputAddress',
         'inputAddress2',
-        'inputCity',
-        'inputZip',
+        // 'inputCity',
+        // 'inputZip',
     ]
 
-   let errorMessages = "";
-   for (let requiredField of requiredFields) {
-    errorMessages += getRequiredFieldErrorMessage(requiredField)
-   }
-
-   document.getElementById('form-messages').innerHTML = getFormattedMessage(errorMessages);
+    formValidation.succesMessage = "Success, the form is submitted!";
+    document.getElementById('form-messages').innerHTML = formValidation.getFormattedMessage();
 })
+
+
+
+
+
+
 
 
 

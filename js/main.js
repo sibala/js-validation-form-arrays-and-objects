@@ -4,48 +4,39 @@ form.addEventListener('submit', function(event) {
     // In this case prevents the form from reloading the page
     event.preventDefault()
 
-   let inputEmail       = document.getElementById('inputEmail');
-   let inputPassword    = document.getElementById('inputPassword');
-   let inputAddress     = document.getElementById('inputAddress');
-   let inputAddress2    = document.getElementById('inputAddress2');
-   let inputCity        = document.getElementById('inputCity');
-   let inputZip         = document.getElementById('inputZip');
-   let formMessages     = document.getElementById('form-messages');
+   
    // let inputConfirmPassword = document.getElementById('inputConfirmPassword');
    // console.log(inputEmail);
    // console.log(inputEmail.value);
 
-  
+
+   const requiredFields = [
+    'inputEmail',
+    'inputPassword',
+    'inputAddress',
+    'inputAddress2',
+    'inputCity',
+    'inputZip',
+   ]
+
    let errorMessages = "";
-   if (isInputEmpty(inputEmail)) {
-       errorMessages += 'Email is required <br>';
-   } 
+   for (let requiredField of requiredFields) {
+    const inputField = document.getElementById(requiredField);
+    if (isInputEmpty(inputField)) {
+        let fieldName = requiredField.replace('input', '');
 
-   if (isInputEmpty(inputAddress)) {
-       errorMessages += 'Address is required <br>';
-   } 
+        switch(fieldName) {
+            case 'Address2':
+                fieldName = 'Second Address'
+                break;
+        }
+        // console.log(fieldName)
+        errorMessages += `${fieldName} is required <br>`;
+    } 
+   }
 
-   if (isInputEmpty(inputAddress2)) {
-       errorMessages += 'Second address is required <br>';
-   } 
 
-   if (isInputEmpty(inputCity)) {
-       errorMessages += 'City is required <br>';
-   } 
-
-   if (isInputEmpty(inputZip)) {
-       errorMessages += 'Zip is required <br>';
-   } 
-
-   if (isInputEmpty(inputPassword)) {
-       errorMessages += 'Password is required <br>';
-   } 
-
-   // if (inputConfirmPassword.value != inputPassword.value) {
-   //     errorMessages += 'Confirm password does not match <br>';
-   // }
-
-      
+   let formMessages     = document.getElementById('form-messages');
    if (errorMessages == "") {
        formMessages.innerHTML = `
        <div class="alert alert-success">
